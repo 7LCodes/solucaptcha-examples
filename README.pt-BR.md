@@ -72,7 +72,7 @@ O cliente mostra taskId antes das consultas. Para retomar uma tarefa existente, 
 | Aliyun Captcha | `aliyun` | [aliyun.json](payloads/aliyun.json) | [Demo](https://solucaptcha.com/pt-br/demos/aliyun) |
 | AWS WAF CAPTCHA | `awswaf` | [awswaf.json](payloads/awswaf.json) | [Demo](https://solucaptcha.com/pt-br/demos/awswaf) |
 
-Os payloads são modelos de configuração, não prova de disponibilidade ou sucesso de um desafio. Ajuste websiteURL e, no Turnstile, websiteKey para sua aplicação autorizada. A chave de teste do Turnstile é pública. OCR não está incluído porque está desativado na configuração documentada.
+Os payloads são modelos de configuração, não prova de disponibilidade ou sucesso de um desafio. Ajuste websiteURL e, no Turnstile, websiteKey para sua aplicação autorizada. A chave de teste do Turnstile é pública. Estes exemplos focam tarefas baseadas em URL; payloads de imagem OCR estão fora desse escopo. Consulte o status ao vivo para verificar a disponibilidade atual.
 
 [Preços atuais](https://solucaptcha.com/pt-br/pricing) · [Status ao vivo](https://solucaptcha.com/pt-br/status)
 

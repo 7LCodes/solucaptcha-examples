@@ -13,9 +13,11 @@ const task = {
   websiteKey: "1x00000000000000000000AA",
 };
 const shared = (locale) => [
-  p(locale === "pt-br"
-    ? "A URL base da API é https://api.solucaptcha.com. Os clientes deste repositório enviam JSON por HTTPS para /createTask, /getTaskResult e /getBalance, usando clientKey no corpo da requisição."
-    : "The API base URL is https://api.solucaptcha.com. These repository clients send JSON over HTTPS to /createTask, /getTaskResult and /getBalance, using clientKey in the request body."),
+  p(
+    locale === "pt-br"
+      ? "A URL base da API é https://api.solucaptcha.com. Os clientes deste repositório enviam JSON por HTTPS para /createTask, /getTaskResult e /getBalance, usando clientKey no corpo da requisição."
+      : "The API base URL is https://api.solucaptcha.com. These repository clients send JSON over HTTPS to /createTask, /getTaskResult and /getBalance, using clientKey in the request body.",
+  ),
   h(locale === "pt-br" ? "Antes de começar" : "Before you start"),
   p(
     locale === "pt-br"
@@ -272,9 +274,11 @@ function pricing(locale) {
           ? "Os preços são administrados no catálogo da SoluCaptcha e podem mudar. A tabela ao vivo no site e o endpoint público abaixo são as referências para os valores atuais; este guia e o GitHub não fixam uma tabela de preços que possa ficar desatualizada."
           : "Prices are managed in the SoluCaptcha catalog and may change. The live table on the website and the public endpoint below are the references for current values; this guide and GitHub do not freeze a price list that could become stale.",
       ),
-      p(pt
-        ? "As tarefas e o saldo usam a API em https://api.solucaptcha.com. O catálogo público de preços é fornecido pelo site em https://solucaptcha.com/api/portal/catalog e não exige chave."
-        : "Tasks and balance use the API at https://api.solucaptcha.com. The public pricing catalog is served by the website at https://solucaptcha.com/api/portal/catalog and requires no API key."),
+      p(
+        pt
+          ? "As tarefas e o saldo usam a API em https://api.solucaptcha.com. O catálogo público de preços é fornecido pelo site em https://solucaptcha.com/api/portal/catalog e não exige chave."
+          : "Tasks and balance use the API at https://api.solucaptcha.com. The public pricing catalog is served by the website at https://solucaptcha.com/api/portal/catalog and requires no API key.",
+      ),
       links([
         link(
           pt ? "Tabela de preços atual" : "Current pricing",
@@ -310,8 +314,8 @@ function pricing(locale) {
       ),
       p(
         pt
-          ? "Ter um preço publicado não significa que o serviço está operacional. Consulte o status antes de integrar. OCR / Image to text está desativado na configuração documentada e não foi incluído nos payloads executáveis. Um health positivo descreve infraestrutura disponível, não uma taxa de sucesso garantida."
-          : "A published price does not mean a service is operational. Check live status before integrating. OCR / Image to text is disabled in the documented configuration and is not included in runnable payloads. Healthy metadata describes infrastructure availability, not a guaranteed success rate.",
+          ? "Ter um preço publicado não significa que o serviço está operacional. Consulte o status antes de integrar. OCR / Image to text recebe dados de imagem e está fora do escopo destes exemplos baseados em URL. Consulte o status atual e o contrato correspondente antes de usar OCR. Um health positivo descreve infraestrutura disponível, não uma taxa de sucesso garantida."
+          : "A published price does not mean a service is operational. Check live status before integrating. OCR / Image to text accepts image data and is outside the scope of these URL-based examples. Check current status and the corresponding contract before using OCR. Healthy metadata describes infrastructure availability, not a guaranteed success rate.",
       ),
       h(
         pt
@@ -326,12 +330,12 @@ function pricing(locale) {
       h(pt ? "Consultar preços com JavaScript" : "Read prices with JavaScript"),
       code(
         "javascript",
-        `const response = await fetch("https://solucaptcha.com/api/portal/catalog", {\n  redirect: "error", signal: AbortSignal.timeout(15000)\n});\nif (!response.ok) throw new Error("HTTP " + response.status);\nconst { items } = await response.json();\nfor (const item of items) {\n  console.log(item.name, "USD / 1000:", item.pricePerThousandCents / 100);\n}`,
+        `const response = await fetch("https://solucaptcha.com/api/portal/catalog", {\n  redirect: "error", signal: AbortSignal.timeout(15000),\n  headers: { Accept: "application/json", "User-Agent": "SoluCaptcha-Examples/1.0" }\n});\nif (!response.ok) throw new Error("HTTP " + response.status);\nconst { items } = await response.json();\nfor (const item of items) {\n  console.log(item.name, "USD / 1000:", item.pricePerThousandCents / 100);\n}`,
       ),
       h(pt ? "Consultar preços com Python" : "Read prices with Python"),
       code(
         "python",
-        `import json\nfrom urllib.request import urlopen\n\nwith urlopen("https://solucaptcha.com/api/portal/catalog", timeout=15) as response:\n    catalog = json.load(response)\nfor item in catalog["items"]:\n    print(item["name"], "USD / 1000:", item["pricePerThousandCents"] / 100)`,
+        `import json\nfrom urllib.request import Request, urlopen\n\nrequest = Request("https://solucaptcha.com/api/portal/catalog", headers={\n    "Accept": "application/json", "User-Agent": "SoluCaptcha-Examples/1.0"\n})\nwith urlopen(request, timeout=15) as response:\n    catalog = json.load(response)\nfor item in catalog["items"]:\n    print(item["name"], "USD / 1000:", item["pricePerThousandCents"] / 100)`,
       ),
       p(
         pt

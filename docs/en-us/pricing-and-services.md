@@ -24,7 +24,7 @@ Tasks and balance use the API at https://api.solucaptcha.com. The public pricing
 | Aliyun Captcha | aliyun |
 | AWS WAF CAPTCHA | awswaf |
 
-A published price does not mean a service is operational. Check live status before integrating. OCR / Image to text is disabled in the documented configuration and is not included in runnable payloads. Healthy metadata describes infrastructure availability, not a guaranteed success rate.
+A published price does not mean a service is operational. Check live status before integrating. OCR / Image to text accepts image data and is outside the scope of these URL-based examples. Check current status and the corresponding contract before using OCR. Healthy metadata describes infrastructure availability, not a guaranteed success rate.
 
 ## Understand USD per 1,000 resolutions
 
@@ -34,7 +34,8 @@ pricePerThousandCents is USD cents per 1,000 resolutions. Divide by 100 to obtai
 
 ```javascript
 const response = await fetch("https://solucaptcha.com/api/portal/catalog", {
-  redirect: "error", signal: AbortSignal.timeout(15000)
+  redirect: "error", signal: AbortSignal.timeout(15000),
+  headers: { Accept: "application/json", "User-Agent": "SoluCaptcha-Examples/1.0" }
 });
 if (!response.ok) throw new Error("HTTP " + response.status);
 const { items } = await response.json();
@@ -47,9 +48,12 @@ for (const item of items) {
 
 ```python
 import json
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
-with urlopen("https://solucaptcha.com/api/portal/catalog", timeout=15) as response:
+request = Request("https://solucaptcha.com/api/portal/catalog", headers={
+    "Accept": "application/json", "User-Agent": "SoluCaptcha-Examples/1.0"
+})
+with urlopen(request, timeout=15) as response:
     catalog = json.load(response)
 for item in catalog["items"]:
     print(item["name"], "USD / 1000:", item["pricePerThousandCents"] / 100)

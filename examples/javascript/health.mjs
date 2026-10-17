@@ -1,2 +1,4 @@
 import { SoluCaptchaClient } from "./client.mjs";
-console.log(JSON.stringify(await new SoluCaptchaClient().health(), null, 2));
+const { status, capacity, supportedTaskTypes } =
+  await new SoluCaptchaClient().health();
+console.log(JSON.stringify({ status, capacity, supportedTaskTypes }, null, 2));

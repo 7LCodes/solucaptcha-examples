@@ -72,7 +72,7 @@ The client prints taskId before polling. To resume an existing task, pass --task
 | Aliyun Captcha | `aliyun` | [aliyun.json](payloads/aliyun.json) | [Demo](https://solucaptcha.com/en-us/demos/aliyun) |
 | AWS WAF CAPTCHA | `awswaf` | [awswaf.json](payloads/awswaf.json) | [Demo](https://solucaptcha.com/en-us/demos/awswaf) |
 
-Payloads are configuration templates, not evidence of availability or challenge success. Set websiteURL and, for Turnstile, websiteKey for your authorized application. The Turnstile test key is public. OCR is excluded because it is disabled in the documented configuration.
+Payloads are configuration templates, not evidence of availability or challenge success. Set websiteURL and, for Turnstile, websiteKey for your authorized application. The Turnstile test key is public. These examples focus on URL-based tasks; OCR image payloads are outside their scope. Check live status for current availability.
 
 [Current prices](https://solucaptcha.com/en-us/pricing) · [Live status](https://solucaptcha.com/en-us/status)
 
