@@ -1,0 +1,51 @@
+name: Examples CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: examples-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  examples:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }} / Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: "3.11"
+            node: "22"
+          - os: ubuntu-latest
+            python: "3.15"
+            node: "24"
+          - os: windows-latest
+            python: "3.12"
+            node: "24"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node }}
+      - name: JavaScript contract tests
+        run: npm test
+      - name: Python contract tests
+        run: python -m unittest discover -s tests/python -v
+      - name: Check generated guides
+        run: node tools/build-guides.mjs --check
+      - name: Repository and payload checks
+        run: node tools/check-repository.mjs
+      - name: Dry-run Python example
+        run: python examples/python/solve.py --task payloads/turnstile.json --dry-run
+      - name: Dry-run JavaScript example
+        run: node examples/javascript/solve.mjs --task payloads/turnstile.json --dry-run

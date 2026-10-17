@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Account, billing and private support
+    url: https://solucaptcha.com/en-us/contact
+    about: Do not share account details or API keys in public issues.
+  - name: Documentation / Documentação
+    url: https://solucaptcha.com/en-us/docs
+    about: API reference, integration guides and service information.

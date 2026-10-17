@@ -1,0 +1,17 @@
+name: Documentation / Documentação
+description: Suggest a correction or clearer guide.
+labels: [documentation]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Guide or page
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Suggested correction
+      description: English or Portuguese is welcome. Never include secrets.
+    validations:
+      required: true

@@ -1,0 +1,28 @@
+name: Example bug / Erro no exemplo
+description: Report a reproducible problem without secrets.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Never include API keys, tokens, cookies, solutions or personal information. For vulnerabilities use SECURITY.md.
+  - type: dropdown
+    id: language
+    attributes:
+      label: Example language
+      options: [Python, JavaScript, Documentation]
+    validations:
+      required: true
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime and operating system
+      placeholder: Python 3.12 / Node.js 24, Windows / Linux / macOS
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps and expected behavior
+      description: Minimal reproduction, with credentials and solutions removed.
+    validations:
+      required: true
